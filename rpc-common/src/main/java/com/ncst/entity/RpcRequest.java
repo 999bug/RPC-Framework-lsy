@@ -1,4 +1,4 @@
-package com.ncst.factory.com.ncst.entity;
+package com.ncst.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

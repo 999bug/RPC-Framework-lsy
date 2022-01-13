@@ -1,5 +1,7 @@
 package com.ncst.serializer;
 
+import com.ncst.common.SerializerEnum;
+
 /**
  * 通用序列化/反序列化接口
  *
@@ -11,8 +13,8 @@ public interface CommonSerializer {
     /**
      * 获取序列化方式
      */
-    static CommonSerializer getSerial(Serializer serializer) {
-        switch (serializer) {
+    static CommonSerializer getSerial(SerializerEnum serializerEnum) {
+        switch (serializerEnum) {
             case JSON_SERIALIZER:
                 return new KryoSerializer();
             case KRYO_SERIALIZER:

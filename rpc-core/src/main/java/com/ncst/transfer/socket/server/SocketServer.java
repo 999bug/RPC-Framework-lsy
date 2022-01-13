@@ -1,9 +1,12 @@
 package com.ncst.transfer.socket.server;
 
+import com.ncst.common.RpcConfig;
 import com.ncst.factory.ThreadPollFactory;
+import com.ncst.handler.RequestHandler;
 import com.ncst.provider.ServiceProviderImpl;
 import com.ncst.registry.NacosServiceRegistry;
-import com.ncst.serializer.Serializer;
+import com.ncst.common.SerializerEnum;
+import com.ncst.serializer.CommonSerializer;
 import com.ncst.transfer.AbstractRpcServer;
 
 import java.net.InetSocketAddress;
@@ -20,20 +23,23 @@ import java.util.concurrent.ExecutorService;
 public class SocketServer extends AbstractRpcServer {
 
     private final ExecutorService executorService;
-    private final Serializer serializer;
+    private final CommonSerializer commonSerializer;
+    private final RequestHandler requestHandler = new RequestHandler();
 
     public SocketServer(String host, int port) {
-        this(host, port, Serializer.DEFAULT_SERIALIZER);
+        this(host, port, SerializerEnum.KRYO_SERIALIZER );
     }
 
-    public SocketServer(String host, int port, Serializer serializer) {
+    public SocketServer(String host, int port, SerializerEnum serializerEnum) {
+        RpcConfig.init();
         this.host = host;
         this.port = port;
-        this.serializer = serializer;
+        this.commonSerializer = CommonSerializer.getSerial(serializerEnum);
         executorService = ThreadPollFactory.createDefaultThreadPoll("socket_rpc_server");
         this.serviceRegistry = new NacosServiceRegistry();
         this.serviceProvider = new ServiceProviderImpl();
         scanServices();
+
     }
 
     @Override
@@ -42,12 +48,11 @@ public class SocketServer extends AbstractRpcServer {
             serverSocket.bind(new InetSocketAddress(host, port));
             logger.info("start server..");
             Socket socket;
-            while ((serverSocket.accept()) != null) {
+            while ((socket = serverSocket.accept()) != null) {
                 logger.warn("{}:{} consumer connect!", host, port);
-                executorService.execute();
+                executorService.execute(new SocketRequestHandlerThread(socket, requestHandler, commonSerializer));
             }
-
-
+            executorService.shutdown();
         } catch (Exception e) {
             logger.error("socketServer start have error {} ", e.getMessage());
         }

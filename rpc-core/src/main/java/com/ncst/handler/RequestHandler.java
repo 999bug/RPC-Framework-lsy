@@ -1,11 +1,14 @@
 package com.ncst.handler;
 
-import com.ncst.factory.com.ncst.entity.RpcRequest;
+import com.ncst.entity.RpcRequest;
+import com.ncst.entity.RpcResponse;
+import com.ncst.common.ResponseCode;
 import com.ncst.provider.ServiceProvider;
 import com.ncst.provider.ServiceProviderImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 /**
@@ -29,8 +32,8 @@ public class RequestHandler {
             Method method = service.getClass().getMethod(rpcRequest.getMethodName(), rpcRequest.getParamTypes());
             result = method.invoke(service, rpcRequest.getParams());
             logger.warn("服务:{} 成功调用方法:{}", rpcRequest.getInterfaceName(), rpcRequest.getMethodName());
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+            return RpcResponse.fail(ResponseCode.METHOD_NOT_FOUND, rpcRequest.getRequestId());
         }
         return result;
     }
