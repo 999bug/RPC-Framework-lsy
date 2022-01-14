@@ -22,12 +22,11 @@ public enum RpcError {
     SERVICE_NOT_IMPLEMENT_INTERFACE("The registration service does not implement an interface"),
     RESPONSE_NOT_MATCH("response and requestId not match"),
 
-    SERVICE_SCAN_PACKAGE_NOT_FOUND("serviceScan not found"),
+    START_UP_LACKS_ANNOTATION("start-up lacks serviceScan"),
     NACOS_SERVICE_NOT_FOUND("nacos service not found"),
     LOAD_BALANCE_NOT_FOUND("load balance not found"),
-    SERIALIZER_NOT_FOUND("serializer not found");
-
-
+    SERIALIZER_NOT_FOUND("serializer not found"),
+    REFLECT_ERROR("class set is empty");
 
     private final String message;
     }

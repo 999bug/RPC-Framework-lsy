@@ -1,5 +1,6 @@
 package com.ncst.impl;
 
+import com.ncst.annotation.Service;
 import com.ncst.service.BaseService;
 import com.ncst.dto.People;
 import org.slf4j.Logger;
@@ -9,6 +10,7 @@ import org.slf4j.LoggerFactory;
  * @author Lsy
  * @date 2022/1/13
  */
+@Service
 public class PeopleService implements BaseService {
     private static final Logger logger = LoggerFactory.getLogger(PeopleService.class);
 

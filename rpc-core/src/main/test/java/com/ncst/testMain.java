@@ -18,4 +18,15 @@ public class testMain {
         System.out.println("RpcConfig.getHost() = " + RpcConfig.getHost());
         System.out.println("RpcConfig.getPort() = " + RpcConfig.getPort());
     }
+
+    @Test
+    public void testException() {
+        try {
+            throw new RuntimeException("fafa");
+
+        } catch (Exception e) {
+            throw new RuntimeException("okoko");
+        }
+
+    }
 }

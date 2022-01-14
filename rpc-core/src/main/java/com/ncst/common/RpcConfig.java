@@ -21,16 +21,18 @@ public class RpcConfig {
     private RpcConfig() { }
 
     private static final Logger logger = LoggerFactory.getLogger(RpcConfig.class);
+    // 默认配置
     private static final int magicNumber = 0xCAFEBABE;
     private static String serializer = "kryo";
     private static String loadBalance = "random";
     private static String host = "192.168.46.22";
     private static int port = 8848;
+    // 绝对路径
+    private static final String CONFIG_PATH = "D:\\code\\jam\\RPC-Framework-lsy\\conf\\rpc-site.conf";
 
     public static void init() {
         Properties prop = new Properties();
-        //绝对路径
-        try (InputStream in = new FileInputStream("D:\\code\\jam\\RPC-Framework-lsy\\conf\\rpc-site.conf");
+        try (InputStream in = new FileInputStream(CONFIG_PATH);
              BufferedReader bf = new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8))) {
             prop.load(bf);
         } catch (IOException e) {
@@ -42,7 +44,7 @@ public class RpcConfig {
         port = Integer.parseInt(prop.getProperty("rpc.nacos.port", String.valueOf(port)));
     }
 
-    private static LoadBalance getLoadbalance(String loadBalance) {
+    private static LoadBalance getLoadBalance(String loadBalance) {
         switch (loadBalance) {
             case ConfigConst.random:
                 return new RandomLoadBalancer();
@@ -73,7 +75,7 @@ public class RpcConfig {
     }
 
     public static LoadBalance getLoadBalance() {
-        return getLoadbalance(loadBalance.toLowerCase());
+        return getLoadBalance(loadBalance.toLowerCase());
     }
 
     public static int getMagicNumber() {
