@@ -3,6 +3,7 @@ package com.ncst.balance;
 import com.alibaba.nacos.api.naming.pojo.Instance;
 
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * 随机轮询
@@ -12,6 +13,6 @@ import java.util.List;
 public class RandomLoadBalancer implements LoadBalance {
     @Override
     public Instance select(List<Instance> instances) {
-        return null;
+        return instances.get(ThreadLocalRandom.current().nextInt(instances.size()));
     }
 }

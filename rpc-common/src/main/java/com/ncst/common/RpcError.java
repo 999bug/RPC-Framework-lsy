@@ -16,7 +16,7 @@ public enum RpcError {
     UNKNOWN_SERIALIZER("unknown serializer"),
     UNKNOWN_PACKAGE_TYPE("unknown package type"),
 
-    FAILED_TO_CONNECT_TO_REGISTRY("Failed to connect to the registry"),
+    FAILED_TO_CONNECT_TO_REGISTRY("Failed to connect to the registry nacos"),
     REGISTRY_SERVER_FAIL("registry server fail"),
     SERVICE_INVOKE_FAIL("service invoke fail"),
     SERVICE_NOT_IMPLEMENT_INTERFACE("The registration service does not implement an interface"),
@@ -26,7 +26,9 @@ public enum RpcError {
     NACOS_SERVICE_NOT_FOUND("nacos service not found"),
     LOAD_BALANCE_NOT_FOUND("load balance not found"),
     SERIALIZER_NOT_FOUND("serializer not found"),
-    REFLECT_ERROR("class set is empty");
+    REFLECT_ERROR("class set is empty"),
+
+    SERIALIZE_ERROR("serializer error");
 
     private final String message;
     }

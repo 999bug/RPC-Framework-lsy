@@ -8,7 +8,6 @@ import com.ncst.serializer.CommonSerializer;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import static com.ncst.util.CommonByteUtil.int2Byte;
 
 /**
  * @author Lsy
@@ -28,12 +27,13 @@ public class ObjectWriter {
      * +---------------------------------------------------------------+
      */
     public static void writeObj(OutputStream outputStream, Object obj, CommonSerializer serializer) throws IOException {
-        outputStream.write(int2Byte(RpcConfig.getMagicNumber()));
+        int magicNumber = RpcConfig.getMagicNumber();
+        outputStream.write(int2Byte(magicNumber));
 
         if (obj instanceof RpcRequest) {
-            outputStream.write(int2Byte(PackageType.REQUEST.getCode()));
+            outputStream.write(int2Byte(PackageType.REQUEST));
         }else {
-            outputStream.write(int2Byte(PackageType.RESPONSE.getCode()));
+            outputStream.write(int2Byte(PackageType.RESPONSE));
         }
 
         outputStream.write(int2Byte(serializer.getSerialCode()));
@@ -43,6 +43,15 @@ public class ObjectWriter {
 
         outputStream.write(bytes);
         outputStream.flush();
+    }
+
+    private static byte[] int2Byte(int value) {
+        byte[] src = new byte[4];
+        src[0] = (byte) ((value>>24) & 0xFF);
+        src[1] = (byte) ((value>>16)& 0xFF);
+        src[2] = (byte) ((value>>8)&0xFF);
+        src[3] = (byte) (value & 0xFF);
+        return src;
     }
 
 }

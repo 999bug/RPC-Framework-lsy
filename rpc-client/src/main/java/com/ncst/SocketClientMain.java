@@ -13,8 +13,7 @@ import org.slf4j.LoggerFactory;
  * @date 2022/1/13
  */
 public class SocketClientMain {
-    private SocketClientMain() {
-    }
+    private SocketClientMain() { }
 
     private static final Logger logger = LoggerFactory.getLogger(SocketClientMain.class);
 
