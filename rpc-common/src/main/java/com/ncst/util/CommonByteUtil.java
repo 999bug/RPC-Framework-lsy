@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.util.regex.Pattern;
 
 /**
+ * 字节工具类
  * @author Lsy
  * @date 2022/1/13
  */
@@ -106,9 +107,7 @@ public class CommonByteUtil {
     }
 
     public static int ip4ToInt(String ipAddr) {
-
         String[] parts = ipAddr.split(Pattern.quote("."));
-
         int vRe = 0;
         vRe = (vRe | Integer.parseInt(parts[0])) << 8;
         vRe = (vRe | Integer.parseInt(parts[1])) << 8;
@@ -119,12 +118,10 @@ public class CommonByteUtil {
     }
 
     public static String ip4ToStr(int ipAddr) {
-
         String sRe = "";
-
-        sRe += String.valueOf((ipAddr >> 24) & 0X00FF) + ".";
-        sRe += String.valueOf((ipAddr >> 16) & 0X00FF) + ".";
-        sRe += String.valueOf((ipAddr >> 8) & 0X00FF) + ".";
+        sRe += ((ipAddr >> 24) & 0X00FF) + ".";
+        sRe += ((ipAddr >> 16) & 0X00FF) + ".";
+        sRe += ((ipAddr >> 8) & 0X00FF) + ".";
         sRe += String.valueOf(ipAddr & 0X00FF);
 
         return sRe;

@@ -3,6 +3,7 @@ package com.ncst.transfer.socket.server;
 import com.ncst.common.RpcConfig;
 import com.ncst.factory.ThreadPollFactory;
 import com.ncst.handler.RequestHandler;
+import com.ncst.hook.ShutdownHook;
 import com.ncst.provider.ServiceProviderImpl;
 import com.ncst.registry.NacosServiceRegistry;
 import com.ncst.common.SerializerEnum;
@@ -34,7 +35,7 @@ public class SocketServer extends AbstractRpcServer {
         RpcConfig.init();
         this.host = host;
         this.port = port;
-        this.commonSerializer = CommonSerializer.getSerial(serializerEnum);
+        this.commonSerializer = CommonSerializer.getSerializer(serializerEnum);
         executorService = ThreadPollFactory.createDefaultThreadPoll("socket_rpc_server");
         this.serviceRegistry = new NacosServiceRegistry();
         this.serviceProvider = new ServiceProviderImpl();
@@ -47,6 +48,7 @@ public class SocketServer extends AbstractRpcServer {
         try (ServerSocket serverSocket = new ServerSocket()) {
             serverSocket.bind(new InetSocketAddress(host, port));
             logger.info("start server..");
+            ShutdownHook.getShutdownHook().addClearAllHook();
             Socket socket;
             while ((socket = serverSocket.accept()) != null) {
                 logger.warn("{}:{} consumer connect!", host, port);

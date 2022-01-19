@@ -1,6 +1,7 @@
 package com.ncst;
 
 import com.ncst.common.RpcConfig;
+import com.ncst.util.CommonByteUtil;
 import org.junit.Test;
 
 /**
@@ -21,12 +22,10 @@ public class testMain {
 
     @Test
     public void testException() {
-        try {
-            throw new RuntimeException("fafa");
+        byte[] bytes = CommonByteUtil.int2Byte(RpcConfig.getMagicNumber());
 
-        } catch (Exception e) {
-            throw new RuntimeException("okoko");
-        }
-
+        int i = CommonByteUtil.byte2Int(bytes);
+        System.out.println(RpcConfig.getMagicNumber());
+        System.out.println("i = " + i);
     }
 }

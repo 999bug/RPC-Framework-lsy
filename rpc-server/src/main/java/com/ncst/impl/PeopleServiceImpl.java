@@ -11,8 +11,8 @@ import org.slf4j.LoggerFactory;
  * @date 2022/1/13
  */
 @Service
-public class PeopleService implements BaseService {
-    private static final Logger logger = LoggerFactory.getLogger(PeopleService.class);
+public class PeopleServiceImpl implements BaseService {
+    private static final Logger logger = LoggerFactory.getLogger(PeopleServiceImpl.class);
 
     @Override
     public String sayHello(People people) {

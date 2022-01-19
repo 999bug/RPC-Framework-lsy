@@ -33,7 +33,7 @@ public abstract class AbstractRpcServer implements RpcServer {
      */
     public void scanServices() {
         String mainClass = ReflectUtil.getMainClass();
-        Class<?> zeroClass = null;
+        Class<?> zeroClass;
         try {
             zeroClass = Class.forName(mainClass);
             if (!zeroClass.isAnnotationPresent(ServiceScan.class)) {
@@ -51,29 +51,25 @@ public abstract class AbstractRpcServer implements RpcServer {
         }
 
         Set<Class<?>> classes = ReflectUtil.getClasses(basePackage);
-        if (classes == null) {
-            throw new RpcException(RpcError.REFLECT_ERROR);
-        } else {
-            // 发布注册实现类
-            for (Class<?> clazz : classes) {
-                if (clazz.isAnnotationPresent(Service.class)) {
-                    String serviceName = clazz.getAnnotation(Service.class).name();
-                    Object obj;
-                    try {
-                        obj = clazz.getDeclaredConstructor().newInstance();
-                    } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-                        logger.error("create {} fail", clazz);
-                        continue;
-                    }
+        // 发布注册实现类
+        for (Class<?> clazz : classes) {
+            if (clazz.isAnnotationPresent(Service.class)) {
+                String serviceName = clazz.getAnnotation(Service.class).name();
+                Object obj;
+                try {
+                    obj = clazz.getDeclaredConstructor().newInstance();
+                } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+                    logger.error("create {} fail", clazz);
+                    continue;
+                }
 
-                    if ("".equals(serviceName)) {
-                        Class<?>[] interfaces = clazz.getInterfaces();
-                        for (Class<?> anInterface : interfaces) {
-                            publishService(obj, anInterface.getCanonicalName());
-                        }
-                    } else {
-                        publishService(obj, serviceName);
+                if ("".equals(serviceName)) {
+                    Class<?>[] interfaces = clazz.getInterfaces();
+                    for (Class<?> anInterface : interfaces) {
+                        publishService(obj, anInterface.getCanonicalName());
                     }
+                } else {
+                    publishService(obj, serviceName);
                 }
             }
         }

@@ -12,7 +12,7 @@ import com.ncst.transfer.socket.server.SocketServer;
 @ServiceScan
 public class SocketServerMain {
     private static final String host = "127.0.0.1";
-    private static final int port = 9191;
+    private static final int port = 9998;
 
     public static void main(String[] args) {
         RpcServer server = new SocketServer(host, port, RpcConfig.getSerializerEnum());

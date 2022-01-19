@@ -25,10 +25,11 @@ public class RpcConfig {
     private static final int magicNumber = 0xCAFEBABE;
     private static String serializer = "kryo";
     private static String loadBalance = "random";
+    // nacos
     private static String host = "192.168.46.22";
     private static int port = 8848;
     // 绝对路径
-    private static final String CONFIG_PATH = "D:\\code\\jam\\RPC-Framework-lsy\\conf\\rpc-site.conf";
+    private static final String CONFIG_PATH = "D:\\code\\jam\\rpc\\RPC-Framework-lsy\\conf\\rpc-site.conf";
 
     public static void init() {
         Properties prop = new Properties();
@@ -90,11 +91,5 @@ public class RpcConfig {
         return port;
     }
 
-    private interface ConfigConst {
-        String kryo = "kryo";
-        String json = "json";
-        String hessian = "hessian";
-        String protobuf = "protobuf";
-        String random = "random";
-    }
+
 }

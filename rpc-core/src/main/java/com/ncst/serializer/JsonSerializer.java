@@ -1,5 +1,7 @@
 package com.ncst.serializer;
 
+import com.ncst.common.ConfigConst;
+
 /**
  * @author Lsy
  * @date 2022/1/12
@@ -17,6 +19,6 @@ public class JsonSerializer implements CommonSerializer {
 
     @Override
     public int getSerialCode() {
-        return 0;
+        return ConfigConst.jsonInt;
     }
 }
