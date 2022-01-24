@@ -1,7 +1,7 @@
 package com.ncst.impl;
 
 import com.ncst.annotation.Service;
-import com.ncst.service.BaseService;
+import com.ncst.service.BaseServiceL;
 import com.ncst.dto.People;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,8 +11,8 @@ import org.slf4j.LoggerFactory;
  * @date 2022/1/13
  */
 @Service
-public class PeopleServiceImpl implements BaseService {
-    private static final Logger logger = LoggerFactory.getLogger(PeopleServiceImpl.class);
+public class PeopleServiceLImpl implements BaseServiceL {
+    private static final Logger logger = LoggerFactory.getLogger(PeopleServiceLImpl.class);
 
     @Override
     public String sayHello(People people) {

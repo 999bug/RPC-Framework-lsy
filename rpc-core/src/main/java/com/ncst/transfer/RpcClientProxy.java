@@ -15,6 +15,8 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 /**
  * rpc 客户端动态代理
@@ -46,6 +48,13 @@ public class RpcClientProxy implements InvocationHandler {
         RpcResponse response = null;
         if (client instanceof SocketClient) {
             response = (RpcResponse) client.sendRequest(rpcRequest);
+        }else {
+            CompletableFuture<RpcResponse>  completableFuture = (CompletableFuture<RpcResponse>) client.sendRequest(rpcRequest);
+            try {
+                response = completableFuture.get();
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
         }
 
         RpcMsgChecker.check(rpcRequest, response);
