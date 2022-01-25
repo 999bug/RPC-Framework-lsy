@@ -1,15 +1,19 @@
 package com.ncst.common;
 
+/**
+ * 常量类用于序列化类型和负载均衡算法
+ * @author Lsy
+ */
 public interface ConfigConst {
-    String kryo = "kryo";
-    String json = "json";
-    String hessian = "hessian";
-    String protobuf = "protobuf";
+    String KRYO = "kryo";
+    String JSON = "json";
+    String HESSIAN = "hessian";
+    String PROTOBUF = "protobuf";
 
-    int kryoInt = 0;
-    int jsonInt = 1;
-    int hessianInt = 2;
-    int protobufInt = 3;
+    int KRYO_INT = 0;
+    int JSON_INT = 1;
+    int HESSIAN_INT = 2;
+    int PROTOBUF_INT = 3;
 
-    String random = "random";
+    String RANDOM = "random";
 }

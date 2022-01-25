@@ -35,13 +35,13 @@ public interface CommonSerializer {
      */
     static SerializerEnum getSerializer(int serializer) {
         switch (serializer) {
-            case ConfigConst.kryoInt:
+            case ConfigConst.KRYO_INT:
                 return SerializerEnum.KRYO_SERIALIZER;
-            case ConfigConst.jsonInt:
+            case ConfigConst.JSON_INT:
                 return SerializerEnum.JSON_SERIALIZER;
-            case ConfigConst.hessianInt:
+            case ConfigConst.HESSIAN_INT:
                 return SerializerEnum.HESSIAN_SERIALIZER;
-            case ConfigConst.protobufInt:
+            case ConfigConst.PROTOBUF_INT:
                 return SerializerEnum.PROTOBUF_SERIALIZER;
             default:
                 throw new RpcException(RpcError.SERIALIZER_NOT_FOUND);

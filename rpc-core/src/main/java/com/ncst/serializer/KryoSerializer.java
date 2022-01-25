@@ -63,6 +63,6 @@ public class KryoSerializer implements CommonSerializer {
 
     @Override
     public int getSerialCode() {
-        return ConfigConst.kryoInt;
+        return ConfigConst.KRYO_INT;
     }
 }

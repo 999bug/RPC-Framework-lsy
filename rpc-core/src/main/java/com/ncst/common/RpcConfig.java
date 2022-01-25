@@ -11,7 +11,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Properties;
 
 /**
- * 读取配置文件
+ * 读取配置文件，
  *
  * @author Lsy
  * @date 2022/1/13
@@ -22,8 +22,8 @@ public class RpcConfig {
 
     private static final Logger logger = LoggerFactory.getLogger(RpcConfig.class);
     // 默认配置
-    private static final int magicNumber = 0xCAFEBABE;
-    private static String serializer = "kryo";
+    private static final int MAGIC_NUMBER = 0xCAFEBABE;
+    private static String serializer = "json";
     private static String loadBalance = "random";
     // nacos
     private static String host = "192.168.46.22";
@@ -47,7 +47,7 @@ public class RpcConfig {
 
     private static LoadBalance getLoadBalance(String loadBalance) {
         switch (loadBalance) {
-            case ConfigConst.random:
+            case ConfigConst.RANDOM:
                 return new RandomLoadBalancer();
             default:
                 logger.error("error message {}", RpcError.LOAD_BALANCE_NOT_FOUND);
@@ -57,13 +57,13 @@ public class RpcConfig {
 
     private static SerializerEnum getSerializer(String serializer) {
         switch (serializer) {
-            case ConfigConst.kryo:
+            case ConfigConst.KRYO:
                 return SerializerEnum.KRYO_SERIALIZER;
-            case ConfigConst.hessian:
+            case ConfigConst.HESSIAN:
                 return SerializerEnum.HESSIAN_SERIALIZER;
-            case ConfigConst.json:
+            case ConfigConst.JSON:
                 return SerializerEnum.JSON_SERIALIZER;
-            case ConfigConst.protobuf:
+            case ConfigConst.PROTOBUF:
                 return SerializerEnum.PROTOBUF_SERIALIZER;
             default:
                 logger.error("error message {}", RpcError.SERIALIZER_NOT_FOUND);
@@ -80,7 +80,7 @@ public class RpcConfig {
     }
 
     public static int getMagicNumber() {
-        return magicNumber;
+        return MAGIC_NUMBER;
     }
 
     public static String getHost() {

@@ -19,6 +19,6 @@ public class HessianSerializer implements CommonSerializer {
 
     @Override
     public int getSerialCode() {
-        return ConfigConst.hessianInt;
+        return ConfigConst.HESSIAN_INT;
     }
 }

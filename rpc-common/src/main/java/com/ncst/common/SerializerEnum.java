@@ -11,10 +11,10 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum SerializerEnum {
-    KRYO_SERIALIZER(0),
-    JSON_SERIALIZER(1),
-    HESSIAN_SERIALIZER(2),
-    PROTOBUF_SERIALIZER(3);
+    KRYO_SERIALIZER(ConfigConst.KRYO_INT),
+    JSON_SERIALIZER(ConfigConst.JSON_INT),
+    HESSIAN_SERIALIZER(ConfigConst.HESSIAN_INT),
+    PROTOBUF_SERIALIZER(ConfigConst.PROTOBUF_INT);
 
     private final int code;
 }

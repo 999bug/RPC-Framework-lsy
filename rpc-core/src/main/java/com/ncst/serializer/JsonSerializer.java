@@ -1,5 +1,6 @@
 package com.ncst.serializer;
 
+import com.alibaba.fastjson.JSONObject;
 import com.ncst.common.ConfigConst;
 
 /**
@@ -7,6 +8,7 @@ import com.ncst.common.ConfigConst;
  * @date 2022/1/12
  */
 public class JsonSerializer implements CommonSerializer {
+
     @Override
     public byte[] serialize(Object obj) {
         return new byte[0];
@@ -19,6 +21,6 @@ public class JsonSerializer implements CommonSerializer {
 
     @Override
     public int getSerialCode() {
-        return ConfigConst.jsonInt;
+        return ConfigConst.JSON_INT;
     }
 }
